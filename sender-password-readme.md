@@ -13,7 +13,6 @@ sender = "yourname@gmail.com"
 ```
 
 > Make sure it's the email account you will use to authenticate with SMTP.  
-> For university accounts (FAST / NU), use your `@nu.edu.pk` email.
 
 ---
 
