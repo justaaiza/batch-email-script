@@ -21,7 +21,18 @@ def sendemail(sender: str, recipient: str, cc_list: list, file_attachment_paths:
         message["To"] = recipient
         message["Cc"] = ", ".join(cc_list)
         message["Subject"] = subject
-        message.attach(MIMEText(body, "plain"))
+
+        # Support both plain-text and HTML email clients.
+        # The body file can include HTML tags (e.g., <b>, <strong>) and we preserve them in the HTML part.
+        # The plain-text part strips HTML tags so the text stays readable in clients that don't render HTML.
+        plain_text_body = re.sub(r"<[^>]+>", "", body)
+        plain_part = MIMEText(plain_text_body, "plain")
+        html_body = body.replace("\n", "<br>")
+        html_part = MIMEText(html_body, "html")
+        alternative = MIMEMultipart("alternative")
+        alternative.attach(plain_part)
+        alternative.attach(html_part)
+        message.attach(alternative)
 
         # Attach files
         for file_path in file_attachment_paths:

@@ -63,11 +63,11 @@ if __name__ == "__main__":
 
     # read and check subject and body
     try:
-        with open("subject.txt", "r") as subject_file:
+        with open("subject.txt", "r", encoding="utf-8") as subject_file:
             subject = subject_file.read()
         if not subject or subject == "":
             raise Exception("Subject file is empty")
-        with open("body.txt", "r") as body_file:
+        with open("body.txt", "r", encoding="utf-8") as body_file:
             body = body_file.read()
         if not body or body == "":
             raise Exception("Body file is empty")
